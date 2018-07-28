@@ -1,2 +1,6 @@
 main.pdf
 *.log
+*.out
+*.toc
+*.lot
+*.lof
