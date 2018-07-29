@@ -33,7 +33,19 @@ sous-systèmes, exception faite de l'alimentation qui est couverte au chapitre
 
 \subsubsection{Altimètre}
 
+Afin de mesurer l'altitude en temps réel, un altimètre barométrique est
+utilisé, plus précisément, le breakout board BMP180 de Sparkfun illustré à la
+figure \ref{f:BMP180}.
 
+\begin{figure}[H]
+	\center
+	\includegraphics[totalheight=0.20\textheight]{fig/BMP180.jpg}
+	\caption{Breakout board du BMP180 de Sparkfun}
+	\label{f:BMP180}
+\end{figure}
+
+La librairie "Adafruit\_BMP085.h" est utilisée afin de simplifier la
+manipulation du capteur par le microcontrôleur.
 
 \subsubsection{Buzzer}
 
@@ -41,7 +53,19 @@ sous-systèmes, exception faite de l'alimentation qui est couverte au chapitre
 
 \subsubsection{Allumettes électroniques}
 
+Pour le déploiement des parachutes, une étincelle est nécessaire pour faire
+sauter une petite quantité de poudre noire. Afin de produire cette étincelle,
+une allumette électronique comme celle illustrée à la figure \ref{f:e-match} est
+utilisée. Pour la faire sauter, il suffit de lui envoyer un courant supérieur
+à une valeur typique fourni par le fabriquant, normalement de l'ordre des
+100 mA.
 
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{fig/e-match.jpg}
+	\caption{Allumette électronique}
+	\label{f:e-match}
+\end{figure}
 
 \subsubsection{Sauvegarde des données de vol}
 
