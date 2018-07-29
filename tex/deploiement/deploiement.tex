@@ -3,10 +3,11 @@
 
 Le système de déploiement des parachutes a pour objectif d'offrir un moyen
 fiable de déployer les parachutes de la fusée au bon moment, en plus d'être
-sécuritaire et simple. Le système de déploiement est composé de 2 circuits: un
-circuit développé par le GAUL (déploiement maison) et un circuit agissant comme
+sécuritaire et simple. Le système de déploiement est composé de 3 circuits: un
+circuit développé par le GAUL (déploiement maison), un circuit agissant comme
 redondance, un \textit{Statologger SL100} de \textit{PerfectFlite} (déploiement
-commercial).
+commercial) et finalement le circuit de la manette contrôlant les relais
+d'alimentation.
 
 \section{Réalisation}
 
@@ -28,7 +29,7 @@ sous-systèmes seront détaillés dans les sections suivantes.
 
 \subsubsection{Alimentation}
 
-Le circuit de déploiement est alimenté par une batterie 9 volt. Un relai
+Le circuit de déploiement est alimenté par une batterie 9~volts. Un relai
 électromagnétique contrôle l'alimentation. Ce relai est connecté au circuit
 d'acquisition de données par un câble plat et c'est le circuit d'acquisition
 qui contrôle l'état du relai. La batterie est maintenue en place par son
@@ -83,6 +84,24 @@ utilisée. Pour la faire sauter, il suffit de lui envoyer un courant supérieur
 
 
 \subsection{Déploiement commercial}
+
+Le déploiement commercial est essentiellement un \textit{Statologger SL100}
+de \textit{PerfectFlite}, tel que montré à la figure \ref{f:stratologger},
+alimenté par une batterie 9~volts. La commutation de l'alimentation est
+effectuée par le même système de relais que pour le déploiement maison.
+
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{fig/stratologger.png}
+	\caption{Stratologger SL100 de PerfectFlite}
+	\label{f:stratologger}
+\end{figure}
+
+Lorsque le vol est terminé, le stratologger utilise son buzzer pour communiquer
+l'altitude de l'apogée. Lors de la compétition de 2018, il a été observé que
+ce système a une autonomie d'au moins 24~heures. 
+
+\subsection{Manette de contrôle des relais}
 
 
 
