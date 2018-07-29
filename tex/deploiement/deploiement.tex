@@ -103,7 +103,7 @@ ce système a une autonomie d'au moins 24~heures.
 
 \subsection{Manette de contrôle des relais}
 
-
+% TODO: photo de la manette quelque part
 
 \section{Rétrospective}
 
@@ -113,9 +113,26 @@ ce système a une autonomie d'au moins 24~heures.
 
 \subsection{Points à améliorer}
 
+\subsubsection{Déploiement maison}
+
+L'outil de simulation Python devrait pouvoir générer le code C de simulation
+pour accélérer le développement est les tests. La simulation elle-même pourrait
+utiliser des données de plusieurs autres vols et faire de meilleurs calculs
+d'interpolation.
+\\
+\par
+Pour le circuit maison, comme il n'a pas pu être testé cette année, les points
+suivants sont basés sur le déploiement de l'an dernier. Pour améliorer le mode
+de simulation du circuit, il serait pertinent d'enrichir les données
+sauvegardées sur la carte SD. Aussi, des LEDs d'état ou un écran LCD seraient
+un bon moyen de suivre la simulation sans avoir à brancher des LEDs directement
+dans les prises destinées aux allumettes électroniques.
+
 \subsubsection{Manette des relais}
 
 L'affichage de la manette pourrait être améliorer en remplaçant les LEDs d'état
 par un écran LCD. De plus, les boutons devraient être changés, car ils n'ont
 pas une très bonne rétroaction lors de l'appui, ce qui est embêtant lors des
-tests, encore plus lors de l'utilisation ultime de la manette.
+tests, encore plus lors de l'utilisation ultime de la manette. Finalement, la
+disposition des boutons, piles et switches sur le circuit pourrait être revue
+afin de rendre son utilisation plus facile.
