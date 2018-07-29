@@ -17,8 +17,7 @@ Tel que le montre la figure \ref{f:diag_fonc_deploiement_maison}, le système de
 déploiement maison est composé de 6 sous-systèmes: l'alimentation, le
 microcontrôleur, l'altimètre, la sortie sonore (buzzer), les allumettes
 électroniques et le point de sauvegarde des données de vol. Tous ces
-sous-systèmes, exception faite de l'alimentation qui est couverte au chapitre
-\ref{chap:alimentation}, seront détaillés dans les sections suivantes.
+sous-systèmes seront détaillés dans les sections suivantes.
 
 \begin{figure}[H]
 	\center
@@ -26,6 +25,18 @@ sous-systèmes, exception faite de l'alimentation qui est couverte au chapitre
 	\caption{Diagramme fonctionnel du système de déploiement maison}
 	\label{f:diag_fonc_deploiement_maison}
 \end{figure}
+
+\subsubsection{Alimentation}
+
+Le circuit de déploiement est alimenté par une batterie 9 volt. Un relai
+électromagnétique contrôle l'alimentation. Ce relai est connecté au circuit
+d'acquisition de données par un câble plat et c'est le circuit d'acquisition
+qui contrôle l'état du relai. La batterie est maintenue en place par son
+support, renforcé par des attaches de type \textit{tie wrap}.
+\\
+\par
+Lorsque l'alimentation est activée, tous les systèmes sont alimentés et le
+microcontrôleur entre dans sa boucle de contrôle.
 
 \subsubsection{Microcontrôleur}
 
