@@ -105,6 +105,42 @@ ce système a une autonomie d'au moins 24~heures.
 
 % TODO: photo de la manette quelque part
 
+La manette de contrôle des relais est un système simple de communication UART,
+fonctionnant selon un modèle \textit{master-slave}, où la manette est le
+\textit{master} (maître) et le système d'acquisition agit comme \textit{slave}
+(esclave).
+\\
+\par
+Quant au protocol utilisé pour la communication des commandes, celui-ci
+consiste en l'envoi d'un octet par la manette et le retour d'un octet par le
+système d'acquisition. La table \ref{t:protocol_manette} montre les commandes
+supportées par la manette.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|p{4cm}|c|}
+		\hline
+		Commande & Valeur & Description & Temps d'exécution \\ \hline
+		\texttt{GET RELAY STATE} & \texttt{0xAX - 1010 XXXX} & \parbox{4cm}{
+		Demande l'état (set ou reset) du relai X.} & de 1.1~ms à 100~ms \\ \hline
+		\texttt{SET RELAY} & \texttt{0xBX - 1011 XXXX} & \parbox{4cm}{Met le
+		relai X à l'état set, état où il alimente son circuit.} & de 1~ms à
+		100~ms \\ \hline
+		\texttt{RESET RELAY} & \texttt{0xCX - 1100 XXXX} & \parbox{4cm}{Met le
+		relai X à l'état reset, état où il n'alimente plus son circuit.} & de
+		1~ms à 100~ms \\ \hline
+		\texttt{RESERVED} & \texttt{0xYX - YYYY XXXX} & Commandes réservées &
+		\textbf{N/A} \\ \hline
+	\end{tabular}
+	\caption{Commandes supportées par le protocol de contrôle des relais
+	d'alimentation}
+	\label{t:protocol_manette}
+\end{table}
+
+Le code de cette implémentation est disponible
+\href{https://github.com/ul-gaul/manette}{ici} pour consultation. Il contient
+le code de la manette et le code \textit{slave} écrit pour un Arduino Uno.
+
 \section{Rétrospective}
 
 \subsection{Points forts}
