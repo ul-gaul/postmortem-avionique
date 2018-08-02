@@ -41,7 +41,31 @@ microcontrôleur entre dans sa boucle de contrôle.
 
 \subsubsection{Microcontrôleur}
 
+Le microcontrôleur utilisé est un ATmega328p. Le code qui s'exécute sur celui-ci
+est organisé selon l'architecture montrée à la figure \ref{f:arch_deploiement}.
 
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{fig/architecture_deploiement.png}
+	\caption{Architecture du programme de déploiement}
+	\label{f:arch_deploiement}
+\end{figure}
+
+Lors d'un vol, les étapes suivantes s'enchaînent selon des événements déterminés
+par l'altitude filtrée et la vitesse de la fusée:
+
+\begin{itemize}
+	\item Launchpad: avant le décollage
+	\item Burnout: durant la montée propulsée par le moteur
+	\item Pre\_drogue: après la propulsion du moteur, mais avant l'apogée
+	\item Pre\_main: après l'apogée, avant le déploiement du main
+	\item Drift: après le déploiement du main, avant de toucher le sol
+	\item Landed: la fusée a atterri
+\end{itemize}
+
+
+L'implémentation du code et de la machine à état du vol est disponible
+\href{https://github.com/ul-gaul/deploiement}{ici} pour consultation.
 
 \subsubsection{Altimètre}
 
@@ -61,6 +85,16 @@ manipulation du capteur par le microcontrôleur.
 
 \subsubsection{Buzzer}
 
+Le buzzer du circuit de déploiement maison est utilisé pour communiquer l'état
+du vol par moyen audio. L'état est représenté par un nombre de courts bips
+répétés à intervalles réguliers. Les états sont:
+
+\begin{enumerate}
+	\item Tous les parachutes sont connectés
+	\item Le drogue est sorti
+	\item Le main est sorti
+	\item Le vol est terminé
+\end{enumerate}
 
 
 \subsubsection{Allumettes électroniques}
@@ -81,7 +115,11 @@ utilisée. Pour la faire sauter, il suffit de lui envoyer un courant supérieur
 
 \subsubsection{Sauvegarde des données de vol}
 
-
+La sauvegarde des données de vol se fait sur une carte micro-SD. Le
+microcontrôleur utilise la librairie \textit{SD.h} fournie par Arduino, afin
+de gèrer le système de fichier FAT32. Les données sauvegardées sont l'altitude
+brute (non-filtrée), l'altitude filtrée, l'altitude maximale atteinte et la
+vitesse.
 
 \subsection{Déploiement commercial}
 
