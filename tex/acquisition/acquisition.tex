@@ -50,5 +50,11 @@ microcontrôleur.
 \par
 
 
-
 \subsection{Points à améliorer}
+
+La méthode d'acquisition des données GPS pourrait être améliorée. Au lieu
+d'utiliser une méthode d'écoute passive sur la ligne de transmission du GPS, on
+pourrait considérer d'y aller par \textit{polling}, i.e. demander au GPS
+lorsqu'on a besoin des données. Cela permettrait d'économiser de l'énergie,
+puisque le GPS ne transmettrait pas en continue, en plus de garder un meilleur
+contrôle sur ses données dans le programme.
