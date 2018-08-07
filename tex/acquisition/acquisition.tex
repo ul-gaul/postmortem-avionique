@@ -52,7 +52,9 @@ CSV en temps réel.
 
 \subsection{Transmission au sol}
 
-
+La transmission au sol se fait en serialisant un structure de données nommée
+\textit{RocketPacket}. Ce RocketPacket contient une structure
+\textit{RocketData} et un octet de checksum de ce RocketData.
 
 \section{Rétrospective}
 
@@ -63,8 +65,6 @@ très utile durant les quelques semaines avant la compétition. En effet, cette
 fonctionnalité diminue grandement le temps de développement et justifie
 amplement la courbe d'apprentissage lors du passage d'Arduino à un autre
 microcontrôleur.
-\par
-
 
 \subsection{Points à améliorer}
 
