@@ -15,6 +15,26 @@
 
 \subsection{Points forts}
 
-
+Les 2 antennes ont très bien fonctionné durant les tests d'intégration. Il
+était possible de transmettre des données du prototype du système d'acquisition
+vers la station au sol sans problèmes.
 
 \subsection{Points à améliorer}
+
+Comme le système a fonctionné parfaitement dans le contexte des tests auquel il
+a été soumis, les recommendations suivantes sont plus des améliorations pour
+l'an prochain que des corrections à apporter.
+\par
+La première amélioration possible est de fabriquer l'antenne patch sur un
+circuit imprimé flexible. Bien que ce soit une option esthétique très
+intéressante, il faut s'assurer de l'exactitude des dimensions et de la
+constante diélectrique, de l'épaisseur du substrat, etc, avant de procéder. Des
+informations ont déjà été récoltées à ce sujet et Circuits Imprimés de la
+Capitale serait disposé à nous commanditer cette impression.
+\par
+À l'aide de notre commandite Matlab qui nous permet d'utiliser l'Antenna
+Toolbox, il serait intéressant d'étudier d'autres possibilités de conception
+d'antennes. Rappel : Les modems RFD900+ utilisés au GAUL fonctionnent dans la
+bande de fréquence 902-928 MHz, ce qui donne une fréquence centrale de 915 MHz.
+Le design doit être réalisé en conséquence. La polarisation également est
+importante, elle est de type linéaire pour ces modules de communication. 
