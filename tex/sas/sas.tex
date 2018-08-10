@@ -96,11 +96,22 @@ protection AP9101C.
 
 \subsubsection{Antenne}
 
-
+La réception des données de vol se fait à l'aide d'une antenne Yagi-Uda,
+connectée par un connecteur de type SMA à un RFD900. Celui-ci communique par
+UART avec le Raspberry Pi sur le seul bus UART existant sur les GPIOs du Pi. Le
+baud rate est de 9600 pour la communication UART.
 
 \subsubsection{GPS}
 
-
+Le GPS est un GPS-11058 de Sparkfun. Il donne ses données par UART avec un baud
+rate de 9600. Par contre, comme il ne restait plus de broches UART sur le
+Raspberry Pi, il a fallu intégré un kernel module pour ajouter un bus. En
+effet, ce module noyau permet d'ajouter un bus UART avec un baud rate jusqu'à
+9600 lorsqu'il est chargé dans le noyau. Le code de ce module est disponible
+sur le repo suivant:
+\href{https://github.com/ul-gaul/sas-driver-gps}{sas-gps-driver}. La broche
+choisie pour le Tx est la broche 15 (ou GPIO 22) et celle pour le Rx est la
+broche 13 (ou GPIO 27).
 
 \subsubsection{Boussole}
 
