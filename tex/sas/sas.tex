@@ -81,7 +81,18 @@ firmware est complètement compatible avec Windows et Rasbian.
 
 \subsubsection{Alimentation}
 
+Le circuit d'alimentation est composé de 6 piles LiPo et fournis de l'énergie
+pour plus de 2~heures. Afin de pouvoir alterner entre une source d'alimentation
+externe et la batterie, le circuit est équipé d'un circuit intégré qui fait ce
+travail. De plus, chaque cellule LiPo est accompagnée d'un circuit intégré de
+protection AP9101C.
 
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.9\textwidth]{fig/alim_sas.jpg}
+	\caption{Le PCB d'alimentation de la SAS, visualisé dans Altium}
+	\label{f:alim_sas}
+\end{figure}
 
 \subsubsection{Antenne}
 
