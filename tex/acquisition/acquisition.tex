@@ -99,3 +99,13 @@ sans-fil. Cela permettrait de sauver du temps sur la rampe de lancement, en
 plus de pouvoir être à une distance sécuritaire lors de l'activation des relais.
 \\
 \par
+Afin d'améliorer la fréquence de transmission des RocketPackets, les capteurs
+devrait être échantillonnés selon leur vitesse de rafraichissement respectives.
+Par exemple, le GPS met à jour ses coordonnées à toutes les secondes, alors que
+le 10DOF peut être échantillonné beaucoup plus rapidement. Au lieu de former un
+RocketPacket en faisant l'acquisition sur chaque capteur à la suite de l'autre,
+il serait possible d'échantillonner les capteurs plus lents seulement
+lorsqu'ils sont prêts et d'envoyer un RocketPacket à la fréquence du capteur le
+plus rapide. Puisqu'en général les capteurs rapides tels que l'accéléromêtre
+donnent des données qui changent rapidement, les données recueillies seraient
+plus représentatives du vol.
