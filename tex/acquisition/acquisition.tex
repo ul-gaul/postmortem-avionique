@@ -54,7 +54,11 @@ breakout board: le IMU 10DOF d'Adafruit.
 
 \subsection{Microcontrôleur}
 
-
+Le microcontrôleur utilisé est un STM32F407VGTX. Il exécute tout le code pour
+faire l'acquisition de données sur chaque capteur, la sauvegarde des données et
+la transmission des données. Le code exécuté est très simple: chaque capteur
+est échantillonné un à un, le RocketPacket est formé, sauvegardé et transmis au
+sol.
 
 \subsection{Sauvegarde des données}
 
