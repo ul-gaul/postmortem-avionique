@@ -1,0 +1,99 @@
+\section{Station au sol - Logiciel}
+\label{chap:sas}
+
+\subsection{Réalisation}
+
+Le logiciel de réception des données sur la station au sol est écrit en
+\textit{Python 3}.
+Celui-ci est portable et donc peut s'exécuter sur un
+ordinateur portable autant que sur le Raspberry Pi de la station au sol
+matérielle.
+Les sections suivantes détaillent le fonctionnement de ce logiciel.
+
+\subsubsection{Architecture producteur-consommateur}
+
+
+\subsubsection{Communication avec la fusée}
+TODO: updater le texte pour le forat 2018 du RocketPacket
+
+La communication entre la fusée et l'ordinateur de la station au sol s'effectue à l'aide d'un émetteur-récepteur de type RFD-900. Ce module de communication transfert les données reçues à l'ordinateur portable ou au Raspberry Pi par son port USB. Cette communication est possible grâce à un protocole d'échange de \emph{RocketPackets}, qui sont des messages de longueur fixe dont le format est défini dans le tableau \ref{LogicielRealisationFormatPacket}. Chaque \emph{RocketPacket} débute par un octet de démarrage, soit le caractère 's' en ASCII, et se termine par un octet de validation.
+\\ \\
+L'algorithme de réception des données est l'exécution en boucle des étapes suivantes:
+
+\begin{enumerate}
+    \item Lire un à un les octets du buffer du port USB jusqu'à obtenir l'octet de démarrage
+    \item Lire les 109 octets du \emph{RocketPacket}
+    \item Calculer la somme de contrôle
+    \item Si le résultat de la somme de contrôle est valide, désérialiser l'objet \emph{RocketPacket} et ajouter celui-ci à la liste des paquets reçus.
+    \item Sinon, rejeter le paquet.
+\end{enumerate}
+
+L'algorithme employé pour assurer la validité des données est une somme de contrôle très simple. L'envoyeur additionne les 108 octets des données du paquet (excluant l'octet de démarrage), puis effectue une inversion logique du résultat. L'octet obtenu est placé à la fin du \emph{RocketPacket}. Lorsque le receveur reçoit le paquet, il additionne ces 109 octets. Comme l'octet de validation est le complément de la somme sur 8 bits des 108 premiers octets, le résultat attendu est 255 (1111 1111). Si le receveur obtient ce résultat, il conclut que les données ne sont pas corrompues.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Champ} & \textbf{Nombre d'octets} \\
+        \hline
+        Octet de départ & 1 \\
+        &\\
+        Timestamp & 4 \\
+        Vitesse angulaire (x) & 4 \\
+        Vitesse angulaire (y) & 4 \\
+        Vitesse angulaire (z) & 4 \\
+        Accélération (x) & 4 \\
+        Accélération (y) & 4 \\
+        Accélération (z) & 4 \\
+        Altitude & 4 \\
+        Latitude 1 & 4 \\
+        Longitude 1 & 4 \\
+        Latitude 2 & 4 \\
+        Longitude 2 & 4 \\
+        Température & 4 \\
+        Date (heures) & 4 \\
+        Date (minutes) & 4 \\
+        Date (secondes) & 4 \\
+        Quaternion (a) & 4 \\
+        Quaternion (b) & 4 \\
+        Quaternion (c) & 4 \\
+        Quaternion (d) & 4 \\
+        État du board d'acquisition 1 & 1 \\
+        État du board d'acquisition 2 & 1 \\
+        État du board d'acquisition 3 & 1 \\
+        État du board d'alimentation 1 & 1 \\
+        État du board d'alimentation 2 & 1 \\
+        État du board du payload & 1 \\
+        Non utilisé & 4 \\
+        Non utilisé & 4 \\
+        Vitesse angulaire payload (x) & 4 \\
+        Vitesse angulaire payload (y) & 4 \\
+        Vitesse angulaire payload (z) & 4 \\
+        Non utilisé & 1 \\
+        Non utilisé & 1 \\
+        &\\
+        Octet de validation & 1 \\
+        \hline
+    \end{tabular}
+    \caption{Format du RocketPacket}
+    \label{LogicielRealisationFormatPacket}
+\end{table}
+
+\subsubsection{Sauvegarde et chargement de données de vol}
+
+
+\subsubsection{Mode \textit{replay}}
+
+
+\subsubsection{Traitement des données}
+
+
+\subsubsection{Interface graphique}
+
+
+\subsection{Rétrospective}
+
+\subsubsection{Points forts}
+
+
+\subsubsection{Points à améliorer}
