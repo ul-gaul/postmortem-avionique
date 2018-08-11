@@ -1,4 +1,4 @@
-\chapter{Système de déploiement des parachutes}
+\section{Système de déploiement des parachutes}
 \label{chap:deploiement}
 
 Le système de déploiement des parachutes a pour objectif d'offrir un moyen
@@ -9,9 +9,9 @@ redondance, un \textit{Statologger SL100} de \textit{PerfectFlite} (déploiement
 commercial) et finalement le circuit de la manette contrôlant les relais
 d'alimentation.
 
-\section{Réalisation}
+\subsection{Réalisation}
 
-\subsection{Déploiement maison}
+\subsubsection{Déploiement maison}
 
 
 Tel que le montre la figure \ref{f:diag_fonc_deploiement_maison}, le système de
@@ -27,7 +27,7 @@ sous-systèmes seront détaillés dans les sections suivantes.
 	\label{f:diag_fonc_deploiement_maison}
 \end{figure}
 
-\subsubsection{Alimentation}
+\subsubsubsection{Alimentation}
 
 Le circuit de déploiement est alimenté par une batterie 9~volts. Un relai
 électromagnétique contrôle l'alimentation. Ce relai est connecté au circuit
@@ -39,7 +39,7 @@ support, renforcé par des attaches de type \textit{tie wrap}.
 Lorsque l'alimentation est activée, tous les systèmes sont alimentés et le
 microcontrôleur entre dans sa boucle de contrôle.
 
-\subsubsection{Microcontrôleur}
+\subsubsubsection{Microcontrôleur}
 
 Le microcontrôleur utilisé est un ATmega328p. Le code qui s'exécute sur celui-ci
 est organisé selon l'architecture montrée à la figure \ref{f:arch_deploiement}.
@@ -67,7 +67,7 @@ par l'altitude filtrée et la vitesse de la fusée:
 L'implémentation du code et de la machine à état du vol est disponible
 \href{https://github.com/ul-gaul/deploiement}{ici} pour consultation.
 
-\subsubsection{Altimètre}
+\subsubsubsection{Altimètre}
 
 Afin de mesurer l'altitude en temps réel, un altimètre barométrique est
 utilisé, plus précisément, le breakout board BMP180 de Sparkfun illustré à la
@@ -83,7 +83,7 @@ figure \ref{f:BMP180}.
 La librairie "Adafruit\_BMP085.h" est utilisée afin de simplifier la
 manipulation du capteur par le microcontrôleur.
 
-\subsubsection{Buzzer}
+\subsubsubsection{Buzzer}
 
 Le buzzer du circuit de déploiement maison est utilisé pour communiquer l'état
 du vol par moyen audio. L'état est représenté par un nombre de courts bips
@@ -97,7 +97,7 @@ répétés à intervalles réguliers. Les états sont:
 \end{enumerate}
 
 
-\subsubsection{Allumettes électroniques}
+\subsubsubsection{Allumettes électroniques}
 
 Pour le déploiement des parachutes, une étincelle est nécessaire pour faire
 sauter une petite quantité de poudre noire. Afin de produire cette étincelle,
@@ -113,7 +113,7 @@ utilisée. Pour la faire sauter, il suffit de lui envoyer un courant supérieur
 	\label{f:e-match}
 \end{figure}
 
-\subsubsection{Sauvegarde des données de vol}
+\subsubsubsection{Sauvegarde des données de vol}
 
 La sauvegarde des données de vol se fait sur une carte micro-SD. Le
 microcontrôleur utilise la librairie \textit{SD.h} fournie par Arduino, afin
@@ -121,7 +121,7 @@ de gèrer le système de fichier FAT32. Les données sauvegardées sont l'altitu
 brute (non-filtrée), l'altitude filtrée, l'altitude maximale atteinte et la
 vitesse.
 
-\subsection{Déploiement commercial}
+\subsubsection{Déploiement commercial}
 
 Le déploiement commercial est essentiellement un \textit{Statologger SL100}
 de \textit{PerfectFlite}, tel que montré à la figure \ref{f:stratologger},
@@ -139,7 +139,7 @@ Lorsque le vol est terminé, le stratologger utilise son buzzer pour communiquer
 l'altitude de l'apogée. Lors de la compétition de 2018, il a été observé que
 ce système a une autonomie d'au moins 24~heures.
 
-\subsection{Manette de contrôle des relais}
+\subsubsection{Manette de contrôle des relais}
 
 % TODO: photo de la manette quelque part
 
@@ -179,19 +179,19 @@ Le code de cette implémentation est disponible
 \href{https://github.com/ul-gaul/manette}{ici} pour consultation. Il contient
 le code de la manette et le code \textit{slave} écrit pour un Arduino Uno.
 
-\section{Rétrospective}
+\subsection{Rétrospective}
 
-\subsection{Points forts}
+\subsubsection{Points forts}
 
-\subsubsection{Interconnections entre les circuits}
+\subsubsubsection{Interconnections entre les circuits}
 L'utilisation de câble plat pour interconnecter le circuit d'acquisition avec
 les circuits de déploiement était une très bonne idée. Elle permet d'ajuster la
 hauteur des circuits dans le cubesat, de conserver la conception modulaire du
 système d'avionique, en plus d'être facile à comprendre et utiliser.
 
-\subsection{Points à améliorer}
+\subsubsection{Points à améliorer}
 
-\subsubsection{Déploiement maison}
+\subsubsubsection{Déploiement maison}
 
 L'outil de simulation Python devrait pouvoir générer le code C de simulation
 pour accélérer le développement est les tests. La simulation elle-même pourrait
@@ -206,7 +206,7 @@ sauvegardées sur la carte SD. Aussi, des LEDs d'état ou un écran LCD seraient
 un bon moyen de suivre la simulation sans avoir à brancher des LEDs directement
 dans les prises destinées aux allumettes électroniques.
 
-\subsubsection{Manette des relais}
+\subsubsubsection{Manette des relais}
 
 L'affichage de la manette pourrait être améliorer en remplaçant les LEDs d'état
 par un écran LCD. De plus, les boutons devraient être changés, car ils n'ont

@@ -1,4 +1,4 @@
-\chapter{Système d'acquisition de données}
+\section{Système d'acquisition de données}
 \label{chap:acquisition}
 
 Le système d'acquisition a pour objectif de faire la sauvegarde et la
@@ -16,13 +16,13 @@ Les données prises sont:
 
 % TODO: inclure photo du board
 
-\section{Réalisation}
+\subsection{Réalisation}
 
-Cette section présente la réalisation du système d'acquisition, selon les
+Cette subsection présente la réalisation du système d'acquisition, selon les
 capteurs utilisés, le microcontrôleur, le système de sauvegarde des données et
 le système de transmission au sol.
 
-\subsection{Support physique}
+\subsubsection{Support physique}
 
 Depuis 2017, nous sommes obligés d'insérer l'avionique dans un support qui
 respecte le format CubeSat. De plus, cette année il a été décidé que le système
@@ -36,7 +36,7 @@ la longueur des câbles est ajustable et que les câbles sont flexibles, le
 placement des circuits est beaucoup permissif que l'an dernier, où il fallait
 avoir une grande précision sur le placement des connecteurs.
 
-\subsection{Capteurs}
+\subsubsection{Capteurs}
 
 Voici la liste des capteurs utilisés et les données qu'ils recueillent:
 ~\\
@@ -52,7 +52,7 @@ Voici la liste des capteurs utilisés et les données qu'ils recueillent:
 À noter que les capteurs BMP180, LSM303DLHC et L3GD20 sont tous sur le même
 breakout board: le IMU 10DOF d'Adafruit.
 
-\subsection{Microcontrôleur}
+\subsubsection{Microcontrôleur}
 
 Le microcontrôleur utilisé est un STM32F407VGTX. Il exécute tout le code pour
 faire l'acquisition de données sur chaque capteur, la sauvegarde des données et
@@ -60,21 +60,21 @@ la transmission des données. Le code exécuté est très simple: chaque capteur
 est échantillonné un à un, le RocketPacket est formé, sauvegardé et transmis au
 sol.
 
-\subsection{Sauvegarde des données}
+\subsubsection{Sauvegarde des données}
 
 La sauvegarde des données se fait à l'aide des librairies de gestion de système
 de fichiers de type FAT. Les données sont simplement écrites dans un fichier
 CSV en temps réel.
 
-\subsection{Transmission au sol}
+\subsubsection{Transmission au sol}
 
 La transmission au sol se fait en serialisant un structure de données nommée
 \textit{RocketPacket}. Ce RocketPacket contient une structure
 \textit{RocketData} et un octet de checksum de ce RocketData.
 
-\section{Rétrospective}
+\subsection{Rétrospective}
 
-\subsection{Points forts}
+\subsubsection{Points forts}
 
 L'utilisation d'un microcontrôleur offrant une interface de debug s'est avérée
 très utile durant les quelques semaines avant la compétition. En effet, cette
@@ -82,7 +82,7 @@ fonctionnalité diminue grandement le temps de développement et justifie
 amplement la courbe d'apprentissage lors du passage d'Arduino à un autre
 microcontrôleur.
 
-\subsection{Points à améliorer}
+\subsubsection{Points à améliorer}
 
 La méthode d'acquisition des données GPS pourrait être améliorée. Au lieu
 d'utiliser une méthode d'écoute passive sur la ligne de transmission du GPS, on

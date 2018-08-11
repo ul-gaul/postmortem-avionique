@@ -1,19 +1,19 @@
-\chapter{Station au sol - SAS}
+\section{Station au sol - SAS}
 \label{chap:sas}
 
-\section{Réalisation}
+\subsection{Réalisation}
 
 La station au sol est composé principalement de 2 parties: la partie matérielle
 et la partie logicielle. La réalisation de ces 2 parties sera détaillée dans
 les sections suivantes.
 
-\subsection{Station au sol - Matérielle}
+\subsubsection{Station au sol - Matérielle}
 
 Les sections suivantes détaillent chaque composante/système de la SAS
 matérielle. Un liste complète des pièces est disponible sur le Google Drive du
 Gaul, dans le document \href{https://drive.google.com/open?id=1WfV-Swc37Ih476rmRLYdwrBWRaUo8ZzXshS-LzYTQF4}{Rouleau sacré de la SAS}.
 
-\subsubsection{Boîtier}
+\subsubsubsection{Boîtier}
 
 Le boîtier de la SAS est fait à partir d'une mallette \textit{NANUK 904}, qui a
 été modifiée pour accommoder les autres composantes de la SAS. Les avantages de
@@ -31,7 +31,7 @@ légerte et est radioperméable (i.e. la coquille laisse passer les ondes radio)
 La figure \ref{f:boitier_sas} montre la mallette avec laquelle la SAS est
 contruite.
 
-\subsubsection{Ordinateur embarqué}
+\subsubsubsection{Ordinateur embarqué}
 
 L'ordinateur embarqué est un Raspberry Pi 3B, utilisant Rasbian comme
 distribution. Pour fonctionner, la SAS a besoin d'un ordinateur assez puissant
@@ -57,13 +57,13 @@ Linux.
 	\label{f:rpi3b}
 \end{figure}
 
-\subsubsection{Écran}
+\subsubsubsection{Écran}
 
 L'affichage de l'information se fait sur un écran tactile de 7", encastré dans
 le compartiment supérieur du boîtier. Celui-ci est connecté par un câble HDMI au
 Raspberry Pi.
 
-\subsubsection{Clavier}
+\subsubsubsection{Clavier}
 
 Le clavier de la SAS est entièrement fait par le GAUL. Il consiste en une
 matrice de boutons et diodes, connectée à un microcontrôleur Teensy 2.0. Le
@@ -79,7 +79,7 @@ firmware est complètement compatible avec Windows et Rasbian.
 	\label{f:keyboard}
 \end{figure}
 
-\subsubsection{Alimentation}
+\subsubsubsection{Alimentation}
 
 Le circuit d'alimentation est composé de 6 piles LiPo et fournis de l'énergie
 pour plus de 2~heures. Afin de pouvoir alterner entre une source d'alimentation
@@ -94,14 +94,14 @@ protection AP9101C.
 	\label{f:alim_sas}
 \end{figure}
 
-\subsubsection{Antenne}
+\subsubsubsection{Antenne}
 
 La réception des données de vol se fait à l'aide d'une antenne Yagi-Uda,
 connectée par un connecteur de type SMA à un RFD900. Celui-ci communique par
 UART avec le Raspberry Pi sur le seul bus UART existant sur les GPIOs du Pi. Le
 baud rate est de 9600 pour la communication UART.
 
-\subsubsection{GPS}
+\subsubsubsection{GPS}
 
 Le GPS est un GPS-11058 de Sparkfun. Il donne ses données par UART avec un baud
 rate de 9600. Par contre, comme il ne restait plus de broches UART sur le
@@ -113,14 +113,14 @@ sur le repo suivant:
 choisie pour le Tx est la broche 15 (ou GPIO 22) et celle pour le Rx est la
 broche 13 (ou GPIO 27).
 
-\subsubsection{Boussole}
+\subsubsubsection{Boussole}
 
 La boussole (ou \textit{compass}) de la SAS est utilisée pour s'orienté lors de
 la recherche de la fusée. Le capteur utilisé est un \textit{HMC5883L} et est
 interfacé par I2C. Sa datasheet peut-être consultée
 \href{https://cdn-shop.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf}{ici}.
 
-\subsubsection{Trackpad}
+\subsubsubsection{Trackpad}
 
 Le trackpad de la SAS est un \textit{Perixx PERIPAD-501B}, placé à droite du
 clavier. Il est connecté par USB au Raspberry Pi. Les tests préliminaires ont
@@ -135,16 +135,16 @@ démontant pour réduire l'espace qu'il prenait.
 	\label{f:trackpad}
 \end{figure}
 
-\subsection{Station au sol - Logicielle}
+\subsubsection{Station au sol - Logicielle}
 
 Le logiciel de réception des données sur la station au sol est écrit en
 \textit{Python 3}. Celui-ci est portable et donc peut s'exécuter sur un
 ordinateur portable autant que sur le Raspberry Pi de la station au sol
 matérielle.
 
-\section{Rétrospective}
+\subsection{Rétrospective}
 
-\subsection{Points forts}
+\subsubsection{Points forts}
 
 L’assemblage physique du boitier et de ses composantes était remarquable.
 En effet, le montage était bien fait, permettait de l’espace où c’était
@@ -181,7 +181,7 @@ cette dernière étaient donc plus permissives.
 La SAS pourrait jouer le rôle de la manette des relais. Il suffirait d'avoir une
 sortie UART et un câble pour se connecter à la fusée.
 
-\subsection{Points à améliorer}
+\subsubsection{Points à améliorer}
 
 Il manquait un pavé tactile afin de mieux contrôler la SAS. Par contre,
 l’espace était prévu sur le panneau principal (HIDP).
