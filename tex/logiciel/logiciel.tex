@@ -1,22 +1,40 @@
-\section{Station au sol - Logiciel}
+\chapter{Station au sol - Logiciel}
 \label{chap:sas}
 
-\subsection{Réalisation}
+\section{Réalisation}
 
-Le logiciel de réception des données sur la station au sol est écrit en
-\textit{Python 3}.
+Le logiciel de la station au sol permet de recevoir les données de vol transmises par la fusée, d'afficher ces données en temps réel dans un interface graphique riche, de les sauvegarder dans un fichier et, enfin, de rejouer un vol.
+Deux modes d'utilisation sont offerts à l'utilisateur: le mode temps réel et le mode replay.
+Le code source de ce programme est écrit en \textit{Python 3}.
 Celui-ci est portable et donc peut s'exécuter sur un
 ordinateur portable autant que sur le Raspberry Pi de la station au sol
 matérielle.
 Les sections suivantes détaillent le fonctionnement de ce logiciel.
 
-\subsubsection{Architecture producteur-consommateur}
+\subsection{Architecture producteur-consommateur}
+La gestion du flot de données est basée sur une architecture producteur-consommateur.
 
+Le producteur est responsable de produire les données de vol de façon continue et régulière, sous forme de paquets appelés \emph{RocketPackets}.
+Deux types de producteurs existent, soient le producteur temps réel et le producteur replay.
+Chacun d'eux est une implémentation d'une classe producteur abstraite.
+Ainsi, les deux types de producteur sont interchangeable du point de vue du consommateur et ils sont libres de générer les nouveaux \emph{RocketPackets} à leur façon.
+Le producteur temps réel lit le port série sur lequel est connectée l'antenne de réception et produit les paquets à partir du flot de données reçues en temps réel de la fusée (voir la section \ref{s:rocket_communication}).
+Le producteur replay génère les paquets en lisant le fichier de sauvegarde d'un vol et simule une réception temps réel (voir la section \ref{s:mode_replay}).
 
-\subsubsection{Communication avec la fusée}
+Le consommateur, quand à lui, est unique et ne dépend pas du mode d'utilisation du logiciel.
+Il consomme les paquets et extrait chacun des champs du \emph{RocketPackets}, qu'il groupe en listes.
+Le consommateur effectue également les différents traitements sur ces données pour les rendre utilisables par les différents widgets de l'interface graphique (voir section \ref{s:traitement}).
+
+Finalement, un contrôleur se charge d'orchestrer le producteur et le consommateur, en plus de rafraîchir l'interface graphique à intervalles réguliers et de gérer les entrées de l'utilisateur.
+
+\subsection{Communication avec la fusée}
+\label{s:rocket_communication}
 TODO: updater le texte pour le forat 2018 du RocketPacket
 
-La communication entre la fusée et l'ordinateur de la station au sol s'effectue à l'aide d'un émetteur-récepteur de type RFD-900. Ce module de communication transfert les données reçues à l'ordinateur portable ou au Raspberry Pi par son port USB. Cette communication est possible grâce à un protocole d'échange de \emph{RocketPackets}, qui sont des messages de longueur fixe dont le format est défini dans le tableau \ref{LogicielRealisationFormatPacket}. Chaque \emph{RocketPacket} débute par un octet de démarrage, soit le caractère 's' en ASCII, et se termine par un octet de validation.
+La communication entre la fusée et l'ordinateur de la station au sol s'effectue à l'aide d'un émetteur-récepteur de type RFD-900.
+Ce module de communication transfert les données reçues à l'ordinateur portable ou au Raspberry Pi par son port USB.
+Cette communication est possible grâce à un protocole d'échange de \emph{RocketPackets}, qui sont des messages de longueur fixe dont le format est défini dans le tableau \ref{LogicielRealisationFormatPacket}.
+Chaque \emph{RocketPacket} débute par un octet de démarrage, soit le caractère 's' en ASCII, et se termine par un octet de validation.
 \\ \\
 L'algorithme de réception des données est l'exécution en boucle des étapes suivantes:
 
@@ -28,7 +46,12 @@ L'algorithme de réception des données est l'exécution en boucle des étapes s
     \item Sinon, rejeter le paquet.
 \end{enumerate}
 
-L'algorithme employé pour assurer la validité des données est une somme de contrôle très simple. L'envoyeur additionne les 108 octets des données du paquet (excluant l'octet de démarrage), puis effectue une inversion logique du résultat. L'octet obtenu est placé à la fin du \emph{RocketPacket}. Lorsque le receveur reçoit le paquet, il additionne ces 109 octets. Comme l'octet de validation est le complément de la somme sur 8 bits des 108 premiers octets, le résultat attendu est 255 (1111 1111). Si le receveur obtient ce résultat, il conclut que les données ne sont pas corrompues.
+L'algorithme employé pour assurer la validité des données est une somme de contrôle très simple.
+L'envoyeur additionne les 108 octets des données du paquet (excluant l'octet de démarrage), puis effectue une inversion logique du résultat.
+L'octet obtenu est placé à la fin du \emph{RocketPacket}.
+Lorsque le receveur reçoit le paquet, il additionne ces 109 octets.
+Comme l'octet de validation est le complément de la somme sur 8 bits des 108 premiers octets, le résultat attendu est 255 (1111 1111).
+Si le receveur obtient ce résultat, il conclut que les données ne sont pas corrompues.
 
 \begin{table}
     \centering
@@ -79,21 +102,23 @@ L'algorithme employé pour assurer la validité des données est une somme de co
     \label{LogicielRealisationFormatPacket}
 \end{table}
 
-\subsubsection{Sauvegarde et chargement de données de vol}
+\subsection{Sauvegarde et chargement de données de vol}
 
 
-\subsubsection{Mode \textit{replay}}
+\subsection{Mode \textit{replay}}
+\label{s:mode_replay}
 
 
-\subsubsection{Traitement des données}
+\subsection{Traitement des données}
+\label{s:traitement}
 
 
-\subsubsection{Interface graphique}
+\subsection{Interface graphique}
 
 
-\subsection{Rétrospective}
+\section{Rétrospective}
 
-\subsubsection{Points forts}
+\subsection{Points forts}
 
 
-\subsubsection{Points à améliorer}
+\subsection{Points à améliorer}
