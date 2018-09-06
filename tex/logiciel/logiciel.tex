@@ -13,11 +13,10 @@ Les sections suivantes détaillent le fonctionnement de ce logiciel.
 
 \subsection{Architecture producteur-consommateur}
 La gestion du flot de données est basée sur une architecture producteur-consommateur.
-
 Le producteur est responsable de produire les données de vol de façon continue et régulière, sous forme de paquets appelés \emph{RocketPackets}.
 Deux types de producteurs existent, soient le producteur temps réel et le producteur replay.
 Chacun d'eux est une implémentation d'une classe producteur abstraite.
-Ainsi, les deux types de producteur sont interchangeable du point de vue du consommateur et ils sont libres de générer les nouveaux \emph{RocketPackets} à leur façon.
+Ainsi, les deux types de producteur sont interchangeables du point de vue du consommateur et ils sont libres de générer les nouveaux \emph{RocketPackets} à leur façon.
 Le producteur temps réel lit le port série sur lequel est connectée l'antenne de réception et produit les paquets à partir du flot de données reçues en temps réel de la fusée (voir la section \ref{s:rocket_communication}).
 Le producteur replay génère les paquets en lisant le fichier de sauvegarde d'un vol et simule une réception temps réel (voir la section \ref{s:mode_replay}).
 
@@ -29,7 +28,7 @@ Finalement, un contrôleur se charge d'orchestrer le producteur et le consommate
 
 \subsection{Communication avec la fusée}
 \label{s:rocket_communication}
-TODO: updater le texte pour le forat 2018 du RocketPacket
+\textbf{TODO: updater le texte pour le forat 2018 du RocketPacket}
 
 La communication entre la fusée et l'ordinateur de la station au sol s'effectue à l'aide d'un émetteur-récepteur de type RFD-900.
 Ce module de communication transfert les données reçues à l'ordinateur portable ou au Raspberry Pi par son port USB.
@@ -103,7 +102,15 @@ Si le receveur obtient ce résultat, il conclut que les données ne sont pas cor
 \end{table}
 
 \subsection{Sauvegarde et chargement de données de vol}
+Au cours du vol de la fusée, le logiciel acquiert des données et les affiche.
+À la fin du vol, au moment d'arrêter l'acquisition, le logiciel offre la possibilité à l'utilisateur de sauvegarder les données dans un fichier CSV.
+Le format de ce fichier est très simple.
+Chaque ligne du fichier correspond à un \emph{RocketPacket} et chacun des champs d'un paquet sont écrits sur cette ligne, dans un ordre précis et séparés par des virgules.
+Ainsi, dans une colonne se trouve le même champ pour tous les \emph{RocketPackets}.
+La première ligne du fichier contient les entêtes, c'est-à-dire le nom sous forme de texte du champ présent dans cette colonne.
 
+Lorsque l'utilisateur veut charger les données d'un vol, il spécifie le fichier CSV correspondant.
+Le logiciel parcours alors les lignes du fichier, désérialise les champs et recrée les \emph{RocketPacket} à partir de ceux-ci.
 
 \subsection{Mode \textit{replay}}
 \label{s:mode_replay}
