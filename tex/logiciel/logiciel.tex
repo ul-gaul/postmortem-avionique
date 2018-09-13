@@ -102,6 +102,7 @@ Si le receveur obtient ce résultat, il conclut que les données ne sont pas cor
 \end{table}
 
 \subsection{Sauvegarde et chargement de données de vol}
+\label{s:sauvegarde}
 Au cours du vol de la fusée, le logiciel acquiert des données et les affiche.
 À la fin du vol, au moment d'arrêter l'acquisition, le logiciel offre la possibilité à l'utilisateur de sauvegarder les données dans un fichier CSV.
 Le format de ce fichier est très simple.
@@ -112,13 +113,40 @@ La première ligne du fichier contient les entêtes, c'est-à-dire le nom sous f
 Lorsque l'utilisateur veut charger les données d'un vol, il spécifie le fichier CSV correspondant.
 Le logiciel parcours alors les lignes du fichier, désérialise les champs et recrée les \emph{RocketPacket} à partir de ceux-ci.
 
-\subsection{Mode \textit{replay}}
+\subsection{Mode replay}
 \label{s:mode_replay}
+Le logiciel offre la possibilité de rejouer un vol précédent en chargeant les données sauvegardées dans un fichier CSV tel que décrit à la section \ref{s:sauvegarde}.
+Une fois le fichier lu, le producteur de type replay possède la totalité des \emph{RocketPackets} de ce vol.
+Afin de simuler une acquisition temps réel, il rend les paquets disponibles au consommateur graduellement, en se basant sur leur timestamp.
+Ce champ correspond au nombre de millisecondes écoulées depuis le début de l'acquisition.
+Le producteur replay possède sont propre fil d'exécution.
+Il commence par \emph{produire} un premier paquet, puis calcule le temps entre le timestamp de celui-ci et le timestamp du paquet suivant.
+Le producteur s'endort pour cet intervalle de temps, puis se réveil et refait le même traitement pour le paquet suivant.
+Il continue ainsi jusqu'au dernier \emph{RocketPacket}, puis se met en veille.
 
+Le mode replay offre à l'utilisateur des contrôles similaires à ceux d'un lecteur vidéo.
+En effet, il est possible de mettre la lecture du vol sur pause, puis de reprendre le visionnement.
+De plus, le mode replay offre la possibilité de faire une avance rapide et même de reculer, comme avec un vidéo.
+Le producteur replay possède un membre de type \emph{PlaybackState}, qui est une structure de données comportant le mode (avancer ou reculer) ainsi que la vitesse (1x, 2x, 4x ou 8x) de lecture.
+Lorsque l'utilisateur demande de reculer, le producteur retire le dernier paquet de la liste des paquets disponibles au lieu d'en ajouter un autre et se base sur le timestamp du paquet précédent pour calculer son temps d'attente.
+Enfin, pour changer la vitesse de lecture, le temps d'attente entre les paquets est divisé par le facteur de vitesse.
+Par exemple, s'il y a une seconde d'écart entre les timestamps de deux \emph{RocketPackets} et que la vitesse de lecture est à 2x, alors le producteur ne se mettra en veille que pour 0.5 seconde avant de produire le paquet suivant.
 
 \subsection{Traitement des données}
 \label{s:traitement}
+Après avoir obtenu les \emph{RocketPackets} du producteur, le consommateur a la responsabilité de traiter ces données afin de les rendre utilisables par l'interface graphique.
+Tout d'abord, le consommateur obtient une liste de \emph{RocketPackets}, qu'il transforme en plusieurs listes, contenant chacune les valeurs d'un certain champ du paquet.
+On a donc une liste contenant toutes les valeurs de timestamps, une autre pour les valeurs d'altitude, une autre pour la latitude, la longitude et ainsi de suite.
 
+Par la suite, les valeurs d'altitude en mètres sont converties en pieds, car c'est l'unité de mesure couramment utilisée dans le cadre de la compétition.
+De plus, les coordonnées GPS sous forme de latitudes et longitudes sont converties en coordonnées du systèmes de projection Transverse Universelle de Mercator (UTM).
+Ce système de coordonnées est utilisé, car il s'agit d'une projection utilisant un plan cartésien en deux dimensions, contrairement au système traditionnel de latitude et longitude.
+Cela permet donc de représenter plus facilement sur un graphique la position de la fusée par rapport à la rampe de lancement.
+
+Enfin, le consommateur calcule la position de la rampe de lancement à partir  des données de position de la fusée.
+Pour ce faire, il fait une moyenne de la position de la fusée lors des dix premières secondes d'acquisition.
+On assume que l'acquisition est démarrée plusieurs minutes avant le décollage, alors que la fusée est sur la rampe.
+Par la suite, cette position est considérée comme l'origine du graphique et la position de la fusée est exprimée par rapport à celle-ci.
 
 \subsection{Interface graphique}
 
